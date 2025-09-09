@@ -6,7 +6,7 @@ authors = ["Sourav Mishra <sourav.m.bt@gmail.com>"]
 description = "A Solana program manager for installing and using Anchor IDLs like packages."
 license = "MIT"
 repository = "https://github.com/0xsouravm/solpm"
-keywords = ["solana", "package manager", "blockchain", "anchor", "cryptography"]
+keywords = ["solana", "package_manager", "blockchain", "anchor", "cryptography"]
 categories = ["cli", "blockchain", "package_manager"]
 readme = "README.md"
 
