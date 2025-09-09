@@ -188,9 +188,9 @@ pub async fn login(token_arg: Option<&str>) -> Result<()> {
     println!("\n{}", CliStyle::header("Registry API Token Required"));
     println!("To use Solana Program Manager to publish programs, you need an API token from the registry.");
     println!("Follow these steps to get an API token:");
-    println!("1. Go to: {}", CliStyle::highlight("http://localhost:3000/auth/github"));
+    println!("1. Go to: {}", CliStyle::highlight("https://solpm.dev/auth/github"));
     println!("2. Sign in with GitHub");
-    println!("3. Go to: {}", CliStyle::highlight("http://localhost:3000/api-tokens"));
+    println!("3. Go to: {}", CliStyle::highlight("https://solpm.dev/api-tokens"));
     println!("4. Create a new token with {} permissions", CliStyle::package("publish:programs"));
     println!("5. Copy the generated token (starts with 'spr_')\n");
     
