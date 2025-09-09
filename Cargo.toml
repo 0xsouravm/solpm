@@ -1,0 +1,38 @@
+[package]
+name = "solpm"
+version = "0.1.0"
+edition = "2024"
+authors = ["Sourav Mishra <sourav.m.bt@gmail.com>"]
+description = "A Solana program manager for installing and using Anchor IDLs like packages."
+license = "MIT"
+repository = "https://github.com/0xsouravm/solpm"
+keywords = ["solana", "package manager", "blockchain", "anchor", "cryptography"]
+categories = ["cli", "blockchain", "package_manager"]
+readme = "README.md"
+
+[[bin]]
+name = "solpm"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0", features = ["preserve_order"] }
+hex = "0.4"
+reqwest = { version = "0.11", features = ["json"] }
+tokio = { version = "1.0", features = ["full"] }
+colored = "2.1"
+indicatif = "0.17"
+console = "0.15"
+dialoguer = "0.11"
+anyhow = "1.0"
+dirs = "5.0"
+base64 = "0.21"
+aes-gcm = "0.10"
+pbkdf2 = "0.12"
+sha2 = "0.10"
+rand = "0.8"
+rpassword = "7.3"
+solana-sdk = "1.18"
+bs58 = "0.5"
+toml = "0.8"
