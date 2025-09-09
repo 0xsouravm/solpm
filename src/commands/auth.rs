@@ -21,10 +21,9 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
 use aes_gcm::{Aes256Gcm, Key, Nonce, KeyInit};
-use aes_gcm::aead::{Aead, OsRng};
+use aes_gcm::aead::{Aead, OsRng, rand_core::RngCore};
 use pbkdf2::pbkdf2_hmac;
 use sha2::Sha256;
-use rand::RngCore;
 use base64::{Engine as _, engine::general_purpose};
 
 #[derive(Serialize, Deserialize, Debug)]

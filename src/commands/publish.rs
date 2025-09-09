@@ -74,15 +74,17 @@ fn load_keypair_from_file(path: &str) -> Result<Keypair> {
     // Try to parse as JSON first (Solana CLI format)
     if let Ok(keypair_json) = serde_json::from_slice::<Vec<u8>>(&keypair_bytes) {
         if keypair_json.len() == 64 {
-            return Keypair::from_bytes(&keypair_json)
-                .map_err(|e| SolanaPmError::InvalidPath(format!("Invalid keypair format: {}", e)));
+            let secret_key: [u8; 32] = keypair_json[..32].try_into()
+                .map_err(|_| SolanaPmError::InvalidPath("Invalid keypair format".to_string()))?;
+            return Ok(Keypair::new_from_array(secret_key));
         }
     }
     
     // Try to parse as raw bytes
     if keypair_bytes.len() == 64 {
-        return Keypair::from_bytes(&keypair_bytes)
-            .map_err(|e| SolanaPmError::InvalidPath(format!("Invalid keypair format: {}", e)));
+        let secret_key: [u8; 32] = keypair_bytes[..32].try_into()
+            .map_err(|_| SolanaPmError::InvalidPath("Invalid keypair format".to_string()))?;
+        return Ok(Keypair::new_from_array(secret_key));
     }
     
     Err(SolanaPmError::InvalidPath(format!(

@@ -19,20 +19,21 @@ clap = { version = "4.0", features = ["derive"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0", features = ["preserve_order"] }
 hex = "0.4"
-reqwest = { version = "0.11", features = ["json"] }
+reqwest = { version = "0.12", features = ["json"] }
 tokio = { version = "1.0", features = ["full"] }
-colored = "2.1"
-indicatif = "0.17"
-console = "0.15"
-dialoguer = "0.11"
+colored = "3.0"
+indicatif = "0.18"
+console = "0.16"
+dialoguer = "0.12"
 anyhow = "1.0"
-dirs = "5.0"
-base64 = "0.21"
+dirs = "6.0"
+base64 = "0.22"
 aes-gcm = "0.10"
 pbkdf2 = "0.12"
 sha2 = "0.10"
-rand = "0.8"
+rand = "0.9"
 rpassword = "7.3"
-solana-sdk = "1.18"
+solana-sdk = "3.0"
 bs58 = "0.5"
-toml = "0.8"
+toml = "0.9"
+zeroize = "1.8"
