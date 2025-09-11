@@ -134,6 +134,14 @@ pub enum Commands {
     
     /// Publish program to the registry
     #[command(alias = "p")]
-    Publish,
+    Publish {
+        /// Path to the authority keypair file
+        /// 
+        /// Examples:
+        ///   solpm publish --authority-keypair ./path/to/keypair.json
+        ///   solpm publish (uses authority_keypair from SolanaPrograms.toml)
+        #[arg(long)]
+        authority_keypair: Option<String>,
+    }
     
 }

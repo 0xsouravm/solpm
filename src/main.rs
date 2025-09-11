@@ -49,8 +49,8 @@ async fn main() {
         Commands::Logout => {
             commands::auth::logout()
         }
-        Commands::Publish => {
-            commands::publish::publish_program().await
+        Commands::Publish { authority_keypair }=> {
+            commands::publish::publish_program(authority_keypair.as_deref()).await
         }
     };
 
