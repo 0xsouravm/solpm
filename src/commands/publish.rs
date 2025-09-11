@@ -110,6 +110,10 @@ const SOLANA_PROGRAMS_TOML: &str = "SolanaPrograms.toml";
 /// - An IDL file in standard locations (target/idl, idl, target/deploy)
 /// - Access to the authority keypair specified in the config
 /// 
+/// /// # Arguments
+/// 
+/// * `token_arg` - Optional API token to use (if None, prompts user)
+
 /// # Returns
 /// 
 /// Returns `Ok(())` on successful publication, or an error if any step fails.
@@ -125,9 +129,12 @@ const SOLANA_PROGRAMS_TOML: &str = "SolanaPrograms.toml";
 /// 
 /// ```rust
 /// // Publish the program configured in SolanaPrograms.toml
-/// publish_program().await?;
+/// publish_program(None).await?;
+/// 
+/// // Publish using a specific authority keypair file
+/// publish_program(Some("./path/to/keypair.json")).await?;
 /// ```
-pub async fn publish_program() -> Result<()> {
+pub async fn publish_program(authority_keypair_arg: Option<&str>) -> Result<()> {
     // Ensure user is authenticated
     let token = ensure_authenticated().await?;
     
@@ -175,7 +182,17 @@ pub async fn publish_program() -> Result<()> {
     
     // Load authority keypair
     let spinner = CliProgress::new_spinner("Loading authority keypair...");
-    let authority_keypair = load_keypair_from_file(&config.program.authority_keypair)?;
+    let authority_keypair = match authority_keypair_arg {
+        Some(ak) => load_keypair_from_file(ak.trim())?,
+        None => {
+            if config.program.authority_keypair.trim().is_empty() {
+                return Err(SolanaPmError::DataMissing(
+                    "Authority keypair is required. Please provide it via --authority-keypair or in SolanaPrograms.toml".to_string()
+                ));
+            }
+            load_keypair_from_file(&config.program.authority_keypair)?
+        }
+    };
     spinner.finish_and_clear();
     
     // Generate challenge and sign it
