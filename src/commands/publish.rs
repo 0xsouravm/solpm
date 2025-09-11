@@ -182,10 +182,16 @@ pub async fn publish_program(authority_keypair_arg: Option<&str>) -> Result<()> 
     
     // Load authority keypair
     let spinner = CliProgress::new_spinner("Loading authority keypair...");
-    let authority_keypair = if let Some(ak) = authority_keypair_arg {
-        load_keypair_from_file(ak.trim())?
-    } else {
-        load_keypair_from_file(&config.program.authority_keypair)?
+    let authority_keypair = match authority_keypair_arg {
+        Some(ak) => load_keypair_from_file(ak.trim())?,
+        None => {
+            if config.program.authority_keypair.trim().is_empty() {
+                return Err(SolanaPmError::DataMissing(
+                    "Authority keypair is required. Please provide it via --authority-keypair or in SolanaPrograms.toml".to_string()
+                ));
+            }
+            load_keypair_from_file(&config.program.authority_keypair)?
+        }
     };
     spinner.finish_and_clear();
     
